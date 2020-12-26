@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Assignment2</title>
+    <h1>DB Assignment2</h1>
+</head>
+
+<body>
+    <form action="/insertC", method="POST">
+        <label>고객</label><br>
+        <label>이름:<input type="text" id="name" name="name" placeholder="Name"></label><br>
+        <label>번호:<input type="text" id="phone" name="phone" placeholder="Phone"></label><br>
+        <label>주소:<input type="text" id="address" name="address" placeholder="Address"></label><br>
+        <label>성별:
+            <select id="gender " name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select><br>
+        </label>
+        <button type="submit" onclick="alert('insert 성공')">Insert</button> 
+
+        
+    </form><br>
+    <form action="/insertT" method="POST">
+        <label>거래</label><br>
+        <label>거래번호:<input type="text" id="tNumber" name="tNumber" placeholder="tNumber"></label><br>
+        <label>상품ID:<input type="text" id="productID" name="productID" placeholder="productID"></label><br>
+        <label>가격:<input type="text" id="price" name="price" placeholder="Price"></label><br>
+        <label>날짜:<input type="text" id="date" name="date" placeholder="Date"></label><br>
+        <label>고객이름:<input type="text" id="customerName" name="customerName" placeholder="customerName"></label><br>
+
+        <button type="submit" onclick="alert('insert 성공')">Insert</button> 
+    </form><br>
+    <form action="/insertP" method="POST">
+        <label>상품</label><br>
+        <label>이름:<input type="text" id="name" name="name" placeholder="Name"></label><br>
+        <label>상품ID:<input type="text" id="productID" name="productID" placeholder="productID"></label><br>
+        <label>공급자이름:<input type="text" id="supplierName" name="supplierName" placeholder="supplierName"></label><br>
+
+
+        <button type="submit" onclick="alert('insert 성공')">Insert</button> 
+    </form>
+
+    <button type="button" onclick="location.href='/select'">SELECT 페이지로</button>
+
+
+
+</body>
+
+</html>

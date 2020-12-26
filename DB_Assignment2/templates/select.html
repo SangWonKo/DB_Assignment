@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Assignment2</title>
+    <h2>Select Table</h2>
+</head>
+<body>
+    <form action="/select/customer" method="POST">
+        <label>Customer Table</label><br>
+        <label>select 영역
+            <select id="select " name="select">
+                <option value="*">All</option>
+                <option value="name">이름으로</option>
+                <option value="phone">전화번호로</option>
+                <option value="address">주소로</option>
+                <option value="gender">성별로</option>
+            </select><br>
+        </label>
+        <button type="submit">Select</button> 
+
+        
+    </form><br>
+    <form action="/select/transaction" method="POST">
+        <label>Transaction Table</label><br>
+        <label>select 영역
+            <select id="select " name="select">
+                <option value="*">All</option>
+                <option value="transactionNumber">거래번호로</option>
+                <option value="productID">상품ID로</option>
+                <option value="price">가격으로</option>
+                <option value="date">날짜로</option>
+                <option value="customerName">구매자이름으로</option>
+            </select><br>
+        </label>
+        <button type="submit">Select</button> 
+
+        
+    </form><br>
+    <form action="/select/product" method="POST"></form>
+        <label>Product Table</label><br>
+        <label>select 영역
+            <select id="select " name="select">
+                <option value="*">All</option>
+                <option value="name">이름으로</option>
+                <option value="productID">상품ID로</option>
+                <option value="supplierName">공급자이름으로</option>
+                
+            </select><br>
+        </label>
+        <button type="submit">Select</button> 
+
+        
+    </form><br>
+    
+</body>
+</html>
