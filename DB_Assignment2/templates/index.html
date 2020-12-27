@@ -45,9 +45,22 @@
     </form><br>
 
     <button type="button" onclick="location.href='/select'">SELECT 페이지로</button>
-    <button type="button" onclick="location.href='/csv'" onclick="alert('csv 입력 성공')">csv 데이터 입력</button><br>
+    <button type="submit" onclick="location.href='/csv'; alert('csv 입력 성공')">csv 데이터 입력</button><br>
 
-    <button type="button" onclick="location.href='/search'">특별한 조건 검색</button>
+    <button type="button" onclick="location.href='/search'">특별한 조건 검색</button><br>
+
+    <form action="/delete" method="POST">
+        <label>데이터 전체 삭제</label><br>
+            <select id="table" name="table">
+                <option value="customer">customer</option>
+                <option value="transaction">transaction</option>
+                <option value="product">product</option>
+            </select><br>
+        </label>
+        <button type="submit" onclick="alert('delete 성공')">DELETE</button> 
+
+        
+    </form><br>
 
 
 

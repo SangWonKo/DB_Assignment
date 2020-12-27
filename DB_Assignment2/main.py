@@ -223,5 +223,26 @@ def a():
 
     return render_template('searchA.html', result = row)
 
+@app.route('/delete', methods=['GET', 'POST'])
+def delete():
+    db = pymysql.connect(
+        user='root',
+        passwd='1234',
+        host='54.180.147.13',
+        db='db_assignment',
+        charset='utf8'
+    )
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    if request.method == 'POST':
+        table_info = request.form
+        table = table_info['table']
+
+    query = "TRUNCATE %s" % (table)
+    cursor.execute(query)
+
+    db.commit()
+
+    return render_template('index.html')
+
 if __name__ == '__main__':
     app.run('0.0.0.0', debug=True)
