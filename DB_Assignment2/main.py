@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from flask_cors import CORS
-import pymysql
+import pymysql, csv
 
 app = Flask(__name__)
 
@@ -13,8 +13,8 @@ def insert():
 
     db = pymysql.connect(
         user='root',
-        passwd='kosang9487',
-        host='localhost',
+        passwd='1234',
+        host='54.180.147.13',
         db='db_assignment',
         charset='utf8'
     )
@@ -39,8 +39,8 @@ def insert():
 def insertT():
     db = pymysql.connect(
         user='root',
-        passwd='kosang9487',
-        host='localhost',
+        passwd='1234',
+        host='54.180.147.13',
         db='db_assignment',
         charset='utf8'
     )
@@ -67,8 +67,8 @@ def insertP():
 
     db = pymysql.connect(
         user='root',
-        passwd='kosang9487',
-        host='localhost',
+        passwd='1234',
+        host='54.180.147.13',
         db='db_assignment',
         charset='utf8'
     )
@@ -82,7 +82,7 @@ def insertP():
         
 
     cursor = db.cursor(pymysql.cursors.DictCursor)
-    query = "INSERT INTO transaction VALUES('%s', '%s', '%s')" % (name, productID, supplierName)
+    query = "INSERT INTO product VALUES('%s', '%s', '%s')" % (name, productID, supplierName)
     cursor.execute(query)
 
     db.commit()
@@ -91,21 +91,137 @@ def insertP():
 
 @app.route('/select')
 def select():
+     
     return render_template('select.html')
-
-@app.route('/select/customer')
-def selectC():
     
-    return render_template('select.html')
 
-@app.route('/select/transaction')
-def selectT(foo):
-    return render_template('select.html')
+@app.route('/select/customer', methods=['GET', 'POST'])
+def selectC():
+    db = pymysql.connect(
+        user='root',
+        passwd='1234',
+        host='54.180.147.13',
+        db='db_assignment',
+        charset='utf8'
+    )
 
-@app.route('/select/product')
-def selectP(foo):
-    return render_template('select.html')
+    if request.method == 'POST':
+        customer_info = request.form
+        select = customer_info['select']
+        
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    query = "SELECT %s FROM customer" % (select)
+    cursor.execute(query)
 
+    row = cursor.fetchall()
+       
+    
+
+    return render_template('selectCustomer.html', result = row)
+
+@app.route('/select/transaction', methods=['GET', 'POST'])
+def selectT():
+    db = pymysql.connect(
+        user='root',
+        passwd='1234',
+        host='54.180.147.13',
+        db='db_assignment',
+        charset='utf8'
+    )
+
+    if request.method == 'POST':
+        transaction_info = request.form
+        select = transaction_info['select']
+        
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    query = "SELECT %s FROM transaction" % (select)
+    cursor.execute(query)
+
+    row = cursor.fetchall()
+    print(row)
+    return render_template('selectTransaction.html', result = row)
+
+@app.route('/select/product', methods=['GET', 'POST'])
+def selectP():
+    db = pymysql.connect(
+        user='root',
+        passwd='1234',
+        host='54.180.147.13',
+        db='db_assignment',
+        charset='utf8'
+    )
+
+    if request.method == 'POST':
+        product_info = request.form
+        select = product_info['select']
+        
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    query = "SELECT %s FROM product" % (select)
+    cursor.execute(query)
+
+    row = cursor.fetchall()
+       
+    
+
+    return render_template('selectProduct.html', result = row)
+
+@app.route('/csv')
+def readcsv():
+    db = pymysql.connect(
+        user='root',
+        passwd='1234',
+        host='54.180.147.13',
+        db='db_assignment',
+        charset='utf8'
+    )
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+
+    csv_data = csv.reader(open('data.csv'))
+    for row in csv_data:
+        if row[0] == "C":
+            query = "INSERT INTO customer(name, phone, address, gender) VALUES('%s', '%s', '%s', '%s')" % (row[1], row[2], row[3], row[4])
+            cursor.execute(query)
+            print(row)
+        if row[0] == "T":
+            query = "INSERT INTO transaction VALUES('%s', '%s', '%s', '%s', '%s')" % (row[1], row[2], row[3], row[4], row[5])
+            cursor.execute(query)
+            print(row)
+        if row[0] == "P":
+            query = "INSERT INTO product VALUES('%s', '%s', '%s')" % (row[1], row[2], row[3]) 
+            cursor.execute(query)
+            print(row)
+
+
+    db.commit()
+    
+
+    return render_template('index.html')
+
+@app.route('/search')
+def search():
+    return render_template('search.html')
+
+@app.route('/search/a')
+def a():
+    db = pymysql.connect(
+        user='root',
+        passwd='1234',
+        host='54.180.147.13',
+        db='db_assignment',
+        charset='utf8'
+    )
+        
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    query = "SELECT distinct product.name FROM customer, transaction, product \
+        WHERE customer.name = transaction.customerName \
+        AND transaction.productID = product.productID \
+        AND customer.gender='Male' > customer.gender='Female'"
+    cursor.execute(query)
+
+    row = cursor.fetchall()
+    print(row)
+
+    return render_template('searchA.html', result = row)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', debug=True)

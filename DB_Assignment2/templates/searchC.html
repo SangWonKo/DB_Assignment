@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Assignment2</title>
+    <h2>Select Table Result</h2>
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        th, td {
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        </style>
+</head>
+<body>
+    <table >
+      <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Gender</th>
+      </tr>
+      {% for row in result %}
+         <tr>
+              <td> {{row['name']}} </td>
+              <td> {{row['phone']}} </td>
+              <td> {{row['address']}} </td>
+              <td> {{row['gender']}} </td>
+              
+              
+         </tr>
+      {% endfor %}
+  </table>
+    
+</body>
+</html>

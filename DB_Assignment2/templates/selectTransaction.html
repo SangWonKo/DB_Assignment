@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Assignment2</title>
+    <h2>Select Table Result</h2>
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        th, td {
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        </style>
+</head>
+<body>
+    <table >
+        <tr>
+            <th>transactionNumber</th>
+            <th>ProductID</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>CustomerName</th>
+        </tr>
+        {% for row in result %}
+           <tr>
+                <td> {{row['transactionNumber']}} </td>
+                <td> {{row['productID']}} </td>
+                <td> {{row['price']}} </td>
+                <td> {{row['date']}} </td>
+                <td> {{row['customerName']}} </td>
+                
+           </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>
